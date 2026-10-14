@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "nombre": "Fisica",
+    "codigo": "FIS09118",
+    "creditos": 10,
+    "cupos": 7
+  },
+  {
+    "id": 2,
+    "nombre": "Fisiologia",
+    "codigo": "FISIO1518",
+    "creditos": 10,
+    "cupos": 15
+  },
+  {
+    "id": 3,
+    "nombre": "Tics",
+    "codigo": "TC0981352",
+    "creditos": 10,
+    "cupos": 18
+  }
+]

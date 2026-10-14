@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "estudiante_id": 2,
+    "materia_id": 1,
+    "periodo": "2027-10",
+    "nota": 15.0,
+    "fecha": "2026-10-13"
+  },
+  {
+    "id": 2,
+    "estudiante_id": 1,
+    "materia_id": 1,
+    "periodo": "2026-12",
+    "nota": 19.0,
+    "fecha": "2026-10-13"
+  },
+  {
+    "id": 3,
+    "estudiante_id": 4,
+    "materia_id": 3,
+    "periodo": "2026-12",
+    "nota": 19.0,
+    "fecha": "2026-10-14"
+  },
+  {
+    "id": 4,
+    "estudiante_id": 4,
+    "materia_id": 1,
+    "periodo": "2026-12",
+    "nota": 0.0,
+    "fecha": "2026-10-14"
+  }
+]

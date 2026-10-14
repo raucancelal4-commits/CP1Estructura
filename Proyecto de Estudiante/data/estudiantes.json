@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "nombre": "Ricardo",
+    "apellido": "Monsalve",
+    "email": "ricardito@unemi.edu.ec",
+    "carnet": "09183",
+    "carrera": "Software"
+  },
+  {
+    "id": 2,
+    "nombre": "Ronny",
+    "apellido": "Aucancela",
+    "email": "raucancelal4@unemi.edu.ec",
+    "carnet": "09185",
+    "carrera": "Medicina"
+  },
+  {
+    "id": 3,
+    "nombre": "Sofhy",
+    "apellido": "Andino",
+    "email": "andino@gmail.com",
+    "carnet": "098135",
+    "carrera": "Biotecnologia"
+  },
+  {
+    "id": 4,
+    "nombre": "Ruth",
+    "apellido": "Medinas",
+    "email": "rmedinas@hotmail.com",
+    "carnet": "098235",
+    "carrera": "Tecnologias De La Informacion"
+  }
+]
