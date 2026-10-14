@@ -67,6 +67,7 @@ class CrudBase(ABC):
 class EstudianteController(CrudBase):
 
     # TUPLA: los campos buscables son fijos y no cambian, por eso tupla y no lista
+    # [CAMBIO - SEMESTRE] Agregado a la tupla para poder buscar por semestre.
     CAMPOS_BUSCABLES = ("nombre", "apellido", "email", "carnet", "carrera", "semestre")
     # [CAMBIO] Atributos de clase: le dicen a CrudBase qué modelo crear y qué archivo leer.
     MODELO = Estudiante
@@ -117,6 +118,10 @@ class EstudianteController(CrudBase):
             if carnet in self.carnets_registrados(id_actual):
                 return f"El carnet {carnet} ya está registrado"
         
+        # [CAMBIO - SEMESTRE] Paso 4 de 5 (validar). Semestre es OPCIONAL:
+        # el menú SIEMPRE manda la clave (aunque vacía), por eso no basta con "if 'semestre' in datos".
+        # Se valida solo si escribieron algo: solo dígitos y rango 1 a 8.
+        # IMPORTANTE: este bloque va ANTES del return None (lo que va después de un return nunca se ejecuta).
         semestre = str(datos.get("semestre", "")).strip()
         if semestre !="":
             if not semestre.isdigit() or not 1 <= int(semestre) <= 8:
@@ -160,6 +165,8 @@ class EstudianteController(CrudBase):
             # TUPLA (exito, mensaje): dos valores fijos que siempre van juntos
             return False, error
 
+        # [CAMBIO - SEMESTRE] Se lee como TEXTO limpio (str + strip). Más abajo se convierte a int.
+        # Se usa .get() para que no dé KeyError si no viene la clave.
         semestre = str(datos.get("semestre", "")).strip()
         estudiante = Estudiante(self.siguiente(),
                                 str(datos["nombre"]).strip().title(),
@@ -167,6 +174,8 @@ class EstudianteController(CrudBase):
                                 str(datos["email"]).strip().lower(),
                                 str(datos["carnet"]).strip().upper(),
                                 str(datos.get("carrera", "")).strip().title(),
+                                # [CAMBIO - SEMESTRE] Si viene vacío queda en 1; si no, se convierte a número.
+                                # Se compara con "" (texto vacío), NO con 0 ni con 1, porque semestre aquí es texto.
                                 int(semestre) if semestre != "" else 1)
         self.lista.append(estudiante)
         self.guardar()
@@ -180,6 +189,7 @@ class EstudianteController(CrudBase):
             return False, "No se indicó ningún cambio"
 
         # DIFERENCIA de conjuntos: campos que no existen en un estudiante
+        # [CAMBIO - SEMESTRE] Permitido al actualizar (si no, daría "Campos no válidos").
         permitidos = {"nombre", "apellido", "email", "carnet", "carrera", "semestre"}
         desconocidos = set(cambios) - permitidos
         if desconocidos:
@@ -198,6 +208,7 @@ class EstudianteController(CrudBase):
                 valor = valor.lower()
             elif campo == "carnet":
                 valor = valor.upper()
+            # [CAMBIO - SEMESTRE] Al actualizar también se convierte a int; si no, quedaría "5" (texto) en el JSON.
             elif campo == "semestre":
                 valor = int(valor)
             setattr(estudiante, campo, valor)

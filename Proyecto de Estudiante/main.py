@@ -62,6 +62,7 @@ def crear_estudiante():
         "email": input("Email: "),
         "carnet": input("Carnet: "),
         "carrera": input("Carrera: "),
+        # [CAMBIO - SEMESTRE] Paso 5 de 5: se pide al crear. Si dan Enter vacío, views.py pone 1.
         "semestre" : input("Semestre: ")
     }
     mostrar_resultado(*estudiantes.crear_estudiante(datos))
@@ -76,6 +77,7 @@ def listar_estudiantes():
 
 def buscar_estudiante():
     imprimir_titulo("BUSCAR ESTUDIANTE")
+    # [CAMBIO - SEMESTRE] El texto coincide con CAMPOS_BUSCABLES de views.py.
     termino = input("Nombre, email, carnet, semestre o carrera: ")
     encontrados = estudiantes.buscar_estudiantes(termino)
     mostrar_lista(encontrados, f"Ningún estudiante coincide con '{termino}'.")
@@ -105,6 +107,7 @@ def actualizar_estudiante():
     print("Deje en blanco lo que no quiera cambiar.\n")
 
     cambios = {}
+    # [CAMBIO - SEMESTRE] Se puede actualizar desde el menú.
     for campo in ("nombre", "apellido", "email", "carnet", "carrera", "semestre"):
         actual = getattr(estudiante, campo)
         nuevo = input(f"{campo.capitalize()} [{actual}]: ").strip()

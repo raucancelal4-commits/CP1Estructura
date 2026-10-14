@@ -63,21 +63,29 @@ class Persona(ModeloBase):
 class Estudiante(Persona):
     """Estudiante ES UNA Persona, con carnet, semestre y carrera."""
 
+    # [CAMBIO - SEMESTRE] Paso 1 de 5: parámetro nuevo CON valor por defecto (1).
+    # Sin el "= 1" los estudiantes viejos del JSON (que no tienen semestre) no cargarían:
+    # desde_diccionario() hace cls(id, **datos) y faltaría ese argumento -> TypeError.
     def __init__(self, id_registro, nombre, apellido, email, carnet="", carrera="", semestre = 1):
         super().__init__(id_registro, nombre, apellido, email)
         self.carnet = carnet
         self.carrera = carrera
+        # [CAMBIO - SEMESTRE] Se guarda como NÚMERO con int(): el input() del menú siempre da texto.
+        # OJO: si en el JSON hay un semestre vacío "" o una palabra, int() falla y el programa no arranca.
         self.semestre = int(semestre)
 
     def a_diccionario(self):
         datos = super().a_diccionario()    # reutiliza lo de Persona
         datos["carnet"] = self.carnet
         datos["carrera"] = self.carrera
+        # [CAMBIO - SEMESTRE] Paso 2 de 5: sin esta línea el semestre NO se guarda en el JSON
+        # (no da error, pero se pierde al cerrar el programa).
         datos["semestre"] = self.semestre
         return datos
 
     def etiqueta(self):
         # Sobrescribe y EXTIENDE la del padre
+        # [CAMBIO - SEMESTRE] Paso 3 de 5: mostrarlo en la etiqueta (lo usa print y mostrar_lista).
         return f"{super().etiqueta()} · {self.carnet} · {self.carrera or 'sin carrera'} · semestre: {self.semestre}"
 
 
