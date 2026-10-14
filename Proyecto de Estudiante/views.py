@@ -43,6 +43,8 @@ class CrudBase(ABC):
     def validar(self, datos, id_actual=None):
         pass
 
+
+
     # [CAMBIO] siguiente() pasó de abstracto a normal: era igual en los 3.
     # Se usa 'obj' (nombre genérico) porque sirve para cualquier modelo.
     def siguiente(self):
@@ -65,7 +67,7 @@ class CrudBase(ABC):
 class EstudianteController(CrudBase):
 
     # TUPLA: los campos buscables son fijos y no cambian, por eso tupla y no lista
-    CAMPOS_BUSCABLES = ("nombre", "apellido", "email", "carnet", "carrera")
+    CAMPOS_BUSCABLES = ("nombre", "apellido", "email", "carnet", "carrera", "semestre")
     # [CAMBIO] Atributos de clase: le dicen a CrudBase qué modelo crear y qué archivo leer.
     MODELO = Estudiante
     ARCHIVO = "data/estudiantes.json"
@@ -114,8 +116,14 @@ class EstudianteController(CrudBase):
             carnet = str(datos["carnet"]).strip().upper()
             if carnet in self.carnets_registrados(id_actual):
                 return f"El carnet {carnet} ya está registrado"
-        return None
+        
+        semestre = str(datos.get("semestre", "")).strip()
+        if semestre !="":
+            if not semestre.isdigit() or not 1 <= int(semestre) <= 8:
+                return "Los semestres deben ser un número entre 1 y 8"
 
+        return None
+    
     def obtener_estudiantes(self):
         return self.lista
 
@@ -152,12 +160,14 @@ class EstudianteController(CrudBase):
             # TUPLA (exito, mensaje): dos valores fijos que siempre van juntos
             return False, error
 
+        semestre = str(datos.get("semestre", "")).strip()
         estudiante = Estudiante(self.siguiente(),
                                 str(datos["nombre"]).strip().title(),
                                 str(datos["apellido"]).strip().title(),
                                 str(datos["email"]).strip().lower(),
                                 str(datos["carnet"]).strip().upper(),
-                                str(datos.get("carrera", "")).strip().title())
+                                str(datos.get("carrera", "")).strip().title(),
+                                int(semestre) if semestre != "" else 1)
         self.lista.append(estudiante)
         self.guardar()
         return True, f"Estudiante creado: {estudiante.etiqueta()}"
@@ -170,7 +180,7 @@ class EstudianteController(CrudBase):
             return False, "No se indicó ningún cambio"
 
         # DIFERENCIA de conjuntos: campos que no existen en un estudiante
-        permitidos = {"nombre", "apellido", "email", "carnet", "carrera"}
+        permitidos = {"nombre", "apellido", "email", "carnet", "carrera", "semestre"}
         desconocidos = set(cambios) - permitidos
         if desconocidos:
             return False, f"Campos no válidos: {', '.join(sorted(desconocidos))}"
@@ -188,6 +198,8 @@ class EstudianteController(CrudBase):
                 valor = valor.lower()
             elif campo == "carnet":
                 valor = valor.upper()
+            elif campo == "semestre":
+                valor = int(valor)
             setattr(estudiante, campo, valor)
 
         self.guardar()

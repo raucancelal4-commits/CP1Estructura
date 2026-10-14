@@ -61,22 +61,24 @@ class Persona(ModeloBase):
 
 
 class Estudiante(Persona):
-    """Estudiante ES UNA Persona, con carnet y carrera."""
+    """Estudiante ES UNA Persona, con carnet, semestre y carrera."""
 
-    def __init__(self, id_registro, nombre, apellido, email, carnet="", carrera=""):
+    def __init__(self, id_registro, nombre, apellido, email, carnet="", carrera="", semestre = 1):
         super().__init__(id_registro, nombre, apellido, email)
         self.carnet = carnet
         self.carrera = carrera
+        self.semestre = int(semestre)
 
     def a_diccionario(self):
         datos = super().a_diccionario()    # reutiliza lo de Persona
         datos["carnet"] = self.carnet
         datos["carrera"] = self.carrera
+        datos["semestre"] = self.semestre
         return datos
 
     def etiqueta(self):
         # Sobrescribe y EXTIENDE la del padre
-        return f"{super().etiqueta()} · {self.carnet} · {self.carrera or 'sin carrera'}"
+        return f"{super().etiqueta()} · {self.carnet} · {self.carrera or 'sin carrera'} · semestre: {self.semestre}"
 
 
 # =====================================================================

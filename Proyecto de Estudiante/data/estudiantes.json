@@ -5,7 +5,8 @@
     "apellido": "Monsalve",
     "email": "ricardito@unemi.edu.ec",
     "carnet": "09183",
-    "carrera": "Software"
+    "carrera": "Software",
+    "semestre": 2
   },
   {
     "id": 2,
@@ -13,7 +14,8 @@
     "apellido": "Aucancela",
     "email": "raucancelal4@unemi.edu.ec",
     "carnet": "09185",
-    "carrera": "Medicina"
+    "carrera": "Medicina",
+    "semestre": 5
   },
   {
     "id": 3,
@@ -21,7 +23,8 @@
     "apellido": "Andino",
     "email": "andino@gmail.com",
     "carnet": "098135",
-    "carrera": "Biotecnologia"
+    "carrera": "Biotecnologia",
+    "semestre": 8
   },
   {
     "id": 4,
@@ -29,6 +32,25 @@
     "apellido": "Medinas",
     "email": "rmedinas@hotmail.com",
     "carnet": "098235",
-    "carrera": "Tecnologias De La Informacion"
+    "carrera": "Tecnologias De La Informacion",
+    "semestre": 1
+  },
+  {
+    "id": 5,
+    "nombre": "Ronny",
+    "apellido": "Anchundia",
+    "email": "anchuron@gmail.com",
+    "carnet": "098316",
+    "carrera": "Ciencia De Datos",
+    "semestre": 1
+  },
+  {
+    "id": 6,
+    "nombre": "Emily",
+    "apellido": "Davalos",
+    "email": "davalosem@gmail.com",
+    "carnet": "1658",
+    "carrera": "Educacion Inicial",
+    "semestre": 1
   }
 ]
